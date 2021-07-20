@@ -60,7 +60,9 @@ In a third terminal you can run the test watcher as well:
 
 ``` bash 
     lein test-refresh
-``` 
+```
+---
+
 ## tasks
 
 - [x] Complete the function (scramble str1 str2) that returns true if a portion of str1 characters can be rearranged to match str2, otherwise returns false.
