@@ -2,20 +2,68 @@
 
 generated using Luminus version "4.14"
 
-FIXME
+## prerequisites
 
-## Prerequisites
-
-You will need [Leiningen][1] 2.0 or above installed.
+You will need [Leiningen][1] 2.0 or above and [Node.js][2] installed.
 
 [1]: https://github.com/technomancy/leiningen
+[2]: https://nodejs.org/en/
 
-## Running
+## installation
 
-To start a web server for the application, run:
+Run in the project's root directory:
 
-    lein run 
 
-## License
+``` bash 
+    lein deps
+    npm install
+``` 
+ 
+## running
 
-Copyright © 2021 FIXME
+Start a web server for the application, run in the project root directory:
+
+``` bash 
+    lein run
+``` 
+
+Start the frontend server in another terminal
+
+``` bash 
+    shadow-cljs server
+``` 
+
+## testing
+
+Run in the project's root:
+
+
+``` bash 
+    lein test 
+``` 
+
+## development
+
+Start a web server for the application, run in the project root directory:
+
+``` bash 
+    lein run
+``` 
+
+Start the frontend server in another terminal
+
+``` bash 
+    shadow-cljs watch app
+``` 
+
+In a third terminal you can run the test watcher as well:
+
+``` bash 
+    lein test-refresh
+``` 
+
+
+
+## license
+
+Copyleft © 2021 
