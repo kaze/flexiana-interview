@@ -17,9 +17,7 @@
          (do          ;; change state and recur
            (reset! charmap (update @charmap letter dec))
            (recur (rest word)))))))
+
   ([charlist word]    ;; initial round: we need to populate the `charmap` first
-   (if (or (empty? charlist) (empty? word))
-     false            ;; invalid arguments, early return
-     (do
-       (reset! charmap (frequencies charlist))
-       (scramble? word)))))
+   (reset! charmap (frequencies charlist))
+   (scramble? word)))
