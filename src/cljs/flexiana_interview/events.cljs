@@ -39,6 +39,32 @@
                   :on-success       [:set-docs]}}))
 
 (rf/reg-event-db
+ :set-scramble-result
+ (fn [db [_ result]]
+   (assoc db :scramble-result (:answer (:body result)))))
+
+(rf/reg-event-db
+ :set-charlist
+ (fn [db [_ value]]
+   (assoc db :charlist value)))
+
+(rf/reg-event-db
+ :set-word
+ (fn [db [_ value]]
+   (assoc db :word value)))
+
+(rf/reg-event-fx
+ :get-scramble-result
+ (fn [_ [_ data]]
+   (js/console.log (str "data before request: " data))
+   {:http-xhrio {:method :get
+                 :uri "/check-scramble"
+                 :params data
+                 :response-format (ajax/json-response-format {:keywords? true})
+                 :on-success [:set-scramble-result]
+                 :on-failure [:common/set-error]}}))
+
+(rf/reg-event-db
   :common/set-error
   (fn [db [_ error]]
     (assoc db :common/error error)))
@@ -76,3 +102,18 @@
   :common/error
   (fn [db _]
     (:common/error db)))
+
+(rf/reg-sub
+ :charlist
+  (fn [db _]
+    (:charlist db)))
+
+(rf/reg-sub
+ :word
+  (fn [db _]
+    (:word db)))
+
+(rf/reg-sub
+ :scramble-result
+  (fn [db _]
+    (:scramble-result db)))
