@@ -15,7 +15,7 @@
         charlist (get params "charlist")
         word (get params "word")]
     (if (not (or (empty? charlist) (empty? word)))
-      (response/ok {:body {:params params :answer (scramble? charlist word)}})
+      (response/ok {:body {:answer (scramble? charlist word)}})
       (response/ok {:body {:error "Wrong parameters"}}))))
 
 (defn home-routes []
