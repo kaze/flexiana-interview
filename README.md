@@ -17,9 +17,9 @@ Performance needs to be considered.
 (scramble? “katas”  “steak”) ==> false
 ```
 
-- [ ] Create a web service that accepts two strings in a request and applies function `scramble?` from previous task to them.
+- [x] Create a web service that accepts two strings in a request and applies function `scramble?` from previous task to them.
 
-- [ ] Create a UI in ClojureScript with two inputs for strings and a "scramble" button. When the button is fired it should call the API from previous task and display a result.
+- [x] Create a UI in ClojureScript with two inputs for strings and a "scramble" button. When the button is fired it should call the API from previous task and display a result.
 
 #### Notes
 
