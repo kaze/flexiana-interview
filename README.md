@@ -11,7 +11,7 @@ Performance needs to be considered.
 
 #### Examples:
 
-``` clojure
+```clojure
 (scramble? “rekqodlw” ”world”) ==> true
 (scramble? “cedewaraaossoqqyt” ”codewars”) ==> true
 (scramble? “katas”  “steak”) ==> false
@@ -40,25 +40,18 @@ You will need [Leiningen][1] 2.0 or above and [Node.js][2] installed.
 
 Run in the project's root directory:
 
-
-``` bash 
+```bash
     lein deps
     npm install
-``` 
- 
+```
+
 ## running
 
 Start a web server for the application, run in the project root directory:
 
-``` bash 
+```bash
     lein run
-``` 
-
-Start the frontend server in another terminal
-
-``` bash 
-    shadow-cljs server
-``` 
+```
 
 Then visit the site at [http://localhost:3000](http://localhost:3000)
 
@@ -66,31 +59,30 @@ Then visit the site at [http://localhost:3000](http://localhost:3000)
 
 Run in the project's root:
 
-
-``` bash 
-    lein test 
-``` 
+```bash
+    lein test
+```
 
 ## development
 
 Start a web server for the application, run in the project root directory:
 
-``` bash 
+```bash
     lein run
-``` 
+```
 
 Start the frontend server in another terminal
 
-``` bash 
+```bash
     shadow-cljs watch app
-``` 
+```
 
 In a third terminal you can run the test watcher as well:
 
-``` bash 
+```bash
     lein test-refresh
 ```
 
 ## license
 
-Copyleft © 2021 
+Copyleft © 2021
