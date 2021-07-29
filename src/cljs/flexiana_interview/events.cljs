@@ -41,7 +41,7 @@
 (rf/reg-event-fx
  :update-scramble-result
  (fn [_ [_ result]]
-   (rf/dispatch [:reset-scramble-error])
+   (rf/dispatch [:set-scramble-error nil])
    (rf/dispatch [:set-scramble-result result])))
 
 (rf/reg-event-db
@@ -49,26 +49,16 @@
  (fn [db [_ result]]
    (assoc db :scramble-result (:answer (:body result)))))
 
-(rf/reg-event-db
- :reset-scramble-result
- (fn [db [_ _]]
-   (assoc db :scramble-result nil)))
-
 (rf/reg-event-fx
  :update-scramble-error
  (fn [_ [_ result]]
-   (rf/dispatch [:reset-scramble-result])
+   (rf/dispatch [:set-scramble-result nil])
    (rf/dispatch [:set-scramble-error result])))
 
 (rf/reg-event-db
  :set-scramble-error
  (fn [db [_ result]]
    (assoc db :scramble-error (get-in result [:response :body :error]))))
-
-(rf/reg-event-db
- :reset-scramble-error
- (fn [db [_ _]]
-   (assoc db :scramble-error nil)))
 
 (rf/reg-event-db
  :set-charlist
