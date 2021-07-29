@@ -79,8 +79,10 @@
       [:div.control
        [:button.button.is-link {:type "submit"
                                 :on-click (fn [e]
-                                            (.preventDefault e
-                                                             (rf/dispatch [:get-scramble-result {:charlist charlist :word word}])))}
+                                            (.preventDefault e)
+                                            (rf/dispatch [:get-scramble-result
+                                                          {:charlist charlist
+                                                           :word word}]))}
         "Check!"]]]]))
 
 (defn about-page []
