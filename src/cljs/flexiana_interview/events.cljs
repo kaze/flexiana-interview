@@ -38,17 +38,37 @@
                   :response-format (ajax/raw-response-format)
                   :on-success       [:set-docs]}}))
 
+(rf/reg-event-fx
+ :update-scramble-result
+ (fn [_ [_ result]]
+   (rf/dispatch [:reset-scramble-error])
+   (rf/dispatch [:set-scramble-result result])))
+
 (rf/reg-event-db
  :set-scramble-result
  (fn [db [_ result]]
-   (assoc db :scramble-error nil)
    (assoc db :scramble-result (:answer (:body result)))))
 
 (rf/reg-event-db
+ :reset-scramble-result
+ (fn [db [_ _]]
+   (assoc db :scramble-result nil)))
+
+(rf/reg-event-fx
+ :update-scramble-error
+ (fn [_ [_ result]]
+   (rf/dispatch [:reset-scramble-result])
+   (rf/dispatch [:set-scramble-error result])))
+
+(rf/reg-event-db
  :set-scramble-error
- (fn [db [_ response]]
-   (assoc db :scramble-result nil)
-   (assoc db :scramble-error (get-in response [:response :body :error]))))
+ (fn [db [_ result]]
+   (assoc db :scramble-error (get-in result [:response :body :error]))))
+
+(rf/reg-event-db
+ :reset-scramble-error
+ (fn [db [_ _]]
+   (assoc db :scramble-error nil)))
 
 (rf/reg-event-db
  :set-charlist
@@ -67,14 +87,13 @@
                  :uri "/check-scramble"
                  :params data
                  :response-format (ajax/json-response-format {:keywords? true})
-                 :on-success [:set-scramble-result]
-                 :on-failure [:set-scramble-error]}}))
+                 :on-success [:update-scramble-result]
+                 :on-failure [:update-scramble-error]}}))
 
 (rf/reg-event-db
  :set-scramble-error
  (fn [db [_ response]]
-   (js/console.log response)
-   (assoc db :scramble-error (get-in response [:response :body :error]))))
+   (assoc db :scramble-error (get-in response [:response :body :error] nil))))
 
 (rf/reg-event-db
   :common/set-error

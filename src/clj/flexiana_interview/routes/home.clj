@@ -14,7 +14,10 @@
   (let [params (:query-params request)
         charlist (get params "charlist")
         word (get params "word")]
-    (if (or (= "null" charlist) (= "null" word))
+    (if (or (= "null" charlist)
+            (empty? charlist)
+            (= "null" word)
+            (empty? word))
       (response/bad-request {:body {:error "Wrong parameters"}})
       (response/ok {:body {:answer (scramble? charlist word)}}))))
 

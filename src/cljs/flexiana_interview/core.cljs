@@ -49,7 +49,7 @@
         (cond
           (= scramble-result true) [:span {:style {:color "green"}} " Yesss!"]
           (= scramble-result false) [:span {:style {:color "red"}} " No..."]
-          (not (nil? scramble-error)) [:span {:style {:color "red"}} (str " Error:" scramble-error)]
+          (not (nil? scramble-error)) [:span {:style {:color "red"}} (str " Error: " scramble-error)]
           :default "")]]
 
       [:div.field
