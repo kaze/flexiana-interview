@@ -40,7 +40,8 @@
 (defn scramble-page []
   (let [charlist @(rf/subscribe [:charlist])
         word @(rf/subscribe [:word])
-        scramble-result @(rf/subscribe [:scramble-result])]
+        scramble-result @(rf/subscribe [:scramble-result])
+        scramble-error @(rf/subscribe [:scramble-error])]
     [:section.section>div.container>div.content.is-medium.columns.is-flex.is-justify-content-center
      [:form.is-two-thirds.mt-6
       [:legend
@@ -48,6 +49,7 @@
         (cond
           (= scramble-result true) [:span {:style {:color "green"}} " Yesss!"]
           (= scramble-result false) [:span {:style {:color "red"}} " No..."]
+          (not (nil? scramble-error)) [:span {:style {:color "red"}} (str " Error:" scramble-error)]
           :default "")]]
 
       [:div.field

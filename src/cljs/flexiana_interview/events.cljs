@@ -41,7 +41,14 @@
 (rf/reg-event-db
  :set-scramble-result
  (fn [db [_ result]]
+   (assoc db :scramble-error nil)
    (assoc db :scramble-result (:answer (:body result)))))
+
+(rf/reg-event-db
+ :set-scramble-error
+ (fn [db [_ response]]
+   (assoc db :scramble-result nil)
+   (assoc db :scramble-error (get-in response [:response :body :error]))))
 
 (rf/reg-event-db
  :set-charlist
@@ -56,13 +63,18 @@
 (rf/reg-event-fx
  :get-scramble-result
  (fn [_ [_ data]]
-   (js/console.log (str "data before request: " data))
    {:http-xhrio {:method :get
                  :uri "/check-scramble"
                  :params data
                  :response-format (ajax/json-response-format {:keywords? true})
                  :on-success [:set-scramble-result]
-                 :on-failure [:common/set-error]}}))
+                 :on-failure [:set-scramble-error]}}))
+
+(rf/reg-event-db
+ :set-scramble-error
+ (fn [db [_ response]]
+   (js/console.log response)
+   (assoc db :scramble-error (get-in response [:response :body :error]))))
 
 (rf/reg-event-db
   :common/set-error
@@ -117,3 +129,8 @@
  :scramble-result
   (fn [db _]
     (:scramble-result db)))
+
+(rf/reg-sub
+ :scramble-error
+  (fn [db _]
+    (:scramble-error db)))

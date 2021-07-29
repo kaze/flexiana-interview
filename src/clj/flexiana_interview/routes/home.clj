@@ -14,9 +14,9 @@
   (let [params (:query-params request)
         charlist (get params "charlist")
         word (get params "word")]
-    (if (not (or (empty? charlist) (empty? word)))
-      (response/ok {:body {:answer (scramble? charlist word)}})
-      (response/ok {:body {:error "Wrong parameters"}}))))
+    (if (or (= "null" charlist) (= "null" word))
+      (response/bad-request {:body {:error "Wrong parameters"}})
+      (response/ok {:body {:answer (scramble? charlist word)}}))))
 
 (defn home-routes []
   [""
